@@ -68,20 +68,12 @@ ggplot(data=sumsteps_byday, aes(steps)) +
         labs(x="Steps per Day", y="Count")
 ```
 
-We can again use *dplyr* and *group_by* to find the mean and median steps per day.
+Calculating the mean and median of the days shows very similar values.
 
 ```{r}
-meansteps_byday <-      group_by(activity, date) %>% ##Group the observations by day
-                        summarize(mean(steps)) ##Create a mean of steps for each day
+mean(sumsteps_byday$steps, na.rm = T)
 
-colnames(meansteps_byday) = c("date", "mean steps") ##Clean the column names
-
-mediansteps_byday <-    group_by(activity, date) %>% ##Group the observations by day
-                        summarize(median(steps)) ##Create a median of steps for each day
-
-colnames(mediansteps_byday) = c("date", "median steps") ##Clean the column names
-
-merge(meansteps_byday, mediansteps_byday, by="date")
+median(sumsteps_byday$steps, na.rm = T)
 ```
 
 ####3. What is the average daily activity pattern?
@@ -146,20 +138,12 @@ ggplot(data=sumsteps_byday2, aes(steps)) +
         labs(x="Steps per Day", y="Count")
 ```
 
-Using the imputed data to look at the mean and median by day gives us some instances where the median is no longer zero.
+Using the imputed data to calculate the mean and median by day gives us equal values.
 
 ```{r}
-meansteps_byday2 <-     group_by(activity2, date) %>% ##Group the observations by day
-                        summarize(mean(steps)) ##Create a mean of steps for each day
+mean(sumsteps_byday2$steps, na.rm = T)
 
-colnames(meansteps_byday2) = c("date", "mean steps") ##Clean the column names
-
-mediansteps_byday2 <-   group_by(activity2, date) %>% ##Group the observations by day
-                        summarize(median(steps)) ##Create a median of steps for each day
-
-colnames(mediansteps_byday2) = c("date", "median steps") ##Clean the column names
-
-merge(meansteps_byday2, mediansteps_byday2, by="date")
+median(sumsteps_byday2$steps, na.rm = T)
 ```
 
 ####5. Are there differences in activity patterns between weekdays and weekends?  
